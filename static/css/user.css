@@ -1,0 +1,25 @@
+@import url("../vendor/css/bootstrap.css");
+.profile-img {
+  width: 50%;
+  height: 50%;
+}
+.user-info {
+  color: #fff;
+  font-weight: 400;
+  font-family: var(--bs-font-monospace);
+  font-size: 1.2em;
+}
+
+.navbar-expand-sm .navbar-collapse {
+  justify-content: flex-end;
+}
+.form-content {
+  margin: 2em 3rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.user-login {
+  padding: inherit;
+  margin-top: 1em;
+}

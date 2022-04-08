@@ -1,0 +1,62 @@
+@import url("../vendor/css/bootstrap.css");
+div {
+  color: var(--bs-white);
+}
+.article-container {
+  margin-top: 2em;
+}
+.article-content {
+  background-color: var(--bs-light);
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  flex-direction: column;
+  margin-bottom: 1em;
+}
+.article-image {
+  object-fit: contain;
+}
+.article-title {
+  text-decoration: none;
+  font-size: 20px;
+}
+.article-description {
+  text-decoration: none;
+  font-size: 15px;
+  color: var(--bs-dark);
+  font-weight: 600;
+}
+.article-link {
+  text-decoration: none;
+}
+/* article details  */
+.article__heading {
+  color: var(--bs-dark);
+  text-align: center;
+  text-transform: capitalize;
+}
+.description__section {
+  margin: 3em 2em;
+  font-style: italic;
+  font-weight: 600;
+}
+.article-first-paragraph,
+.description-tex {
+  color: var(--bs-white);
+}
+.article-profile-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+}
+.article-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.about-heading{
+  font-family: var(--bs-font-sans-serif);
+}
+.about-text {
+  font-family: var(--bs-font-monospace);
+}

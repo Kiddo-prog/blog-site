@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/article.css' %}"
+    />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'vendor/css/bootstrap.min.css' %}"
+    />
+    <title>{% block article_title %} {% endblock %}</title>
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+    <div class="container">{% block article_content %} {% endblock %}</div>
+
+    <script src="{% static 'vendor/js/bootstrap.min.js' %}"></script>
+  </body>
+</html>

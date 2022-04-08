@@ -1,0 +1,6 @@
+{% extends 'base.html' %} {% block content %}
+<h4 class="text-center text-white mt-5">
+  You have been logged out.
+  <a href="{% url 'users:login' %}" class="btn btn-primary">Login</a>
+</h4>
+{% endblock %}

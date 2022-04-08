@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% block content %}
+<div class="flex-direction-row justify-content-center m-3 p-2">
+  <img
+    src="{{ user.profile.image.url }}"
+    alt="profile_pics"
+    class="img-fluid"
+  />
+    <p class="user-info mt-4">{{ user.profile.info }}</p>
+  </div>
+  <a href="{% url 'users:profile_edit' %}" class="btn btn-primary m-4"
+    >Edit Profile</a
+  >
+</div>
+<!-- <p>{{ user.email }}</p> -->
+{% endblock %}

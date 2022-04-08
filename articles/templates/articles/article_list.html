@@ -1,0 +1,54 @@
+{% extends 'article_base.html' %} {% block article_content %}
+    <div class="container">
+      <div class="article-container">
+
+        <div class="row">
+          {% for article in article_list %}
+          <div class="col-lg-12 col-sm-6 my-3">
+            <div class="card">
+              <div class="card-body card">
+                <h5 class="card-title text-dark fw-bold">{{ article.title|title }}</h5>
+                {% autoescape on %}
+                <p class="card-text text-dark text-muted">
+                  {{ article.description|truncatewords:10|safe|escape }}
+                </p>
+                {% endautoescape %}
+                <a href="{{ article.get_absolute_url }}" class="text-capitalise btn btn-primary">Read More</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- pagination -->
+
+    <div class="d-flex justify-content-center mt-4 pagination">
+      <span class="step-links">
+        {% if page_obj.has_previous %}
+        <a href="?page=1" class="btn btn-danger">first</a>
+        <a
+          href="?page={{ page_obj.previous_page_number }}"
+          class="btn btn-primary"
+          >&laquo; previous</a
+        >
+        {% endif %}
+        <span class="m-2 current">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-primary"
+          >next &raquo;</a
+        >
+        <a
+          href="?page={{ page_obj.paginator.num_pages }}"
+          class="btn btn-danger"
+          >last</a
+        >
+        {% endif %}
+      </span>
+    </div>
+  </div>
+</div>
+{% endblock %}
