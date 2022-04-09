@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
-from .models import Article
-from .forms import ArticleForm
+from .models import Article, Comment
+from .forms import ArticleForm, CommentForm
 from django.views.generic import ListView, DetailView, CreateView
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
@@ -62,3 +62,41 @@ def contact(request):
 
 def success_page(request):
     return render(request, "success.html", {})
+
+
+def post_comment(request, year, month, day, post):
+    post = get_object_or_404(
+        Article,
+        slug=post,
+        status="published",
+        publish__year=year,
+        publish__month=month,
+        publish__day=day,
+    )
+    comments = post.comments.filter(active=True)
+
+    new_comment = None
+
+    if request.method == "POST":
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.post = post
+            new_comment.save()
+            return render(
+                request, "articles/article_detail.html", {"comment_form": comment_form}
+            )
+
+    else:
+        comment_form = CommentForm()
+        context = {
+            "post": post,
+            "comments": comments,
+            "new_comment": new_comment,
+            "comment_form": comment_form,
+        }
+    return render(
+        request,
+        "articles/article_detail.html",
+        context,
+    )

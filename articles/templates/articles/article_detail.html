@@ -1,31 +1,59 @@
-{% extends 'article_base.html' %} {% block article_content %}
-<section class="mt-5 description__section">
-  <h1 class="text-light article__heading">{{ article_detail.title }}</h1>
-  <div
-    class="d-flex align-items-center justify-content-around justify-content-sm-between mt-4 text-white"
-  >
-    <p>By: {{ article_detail.author }}</p>
-    <p>Updated: {{ article_detail.date_created.date|date:" D d M Y" }}</p>
-  </div>
-  <hr />
-  <div>
-    {% autoescape on %}
-    <p class="article-first-paragraph">
-      {{ article_detail.description|safe|escape }}
-    </p>
-    {% endautoescape %}
-    <img
-      src="{{ article_detail.upload_pics.url }}"
-      alt="post pics"
-      class="img-fluid"
-    />
-    {% autoescape on %}
-    <p class="mt-5 description-text">{{ article_detail.text|safe|escape }}</p>
-    {% endautoescape %}
-  </div>
-</section>
+{% extends 'article_base.html' %} {% load crispy_forms_tags %}
+<main>
+  {% block article_content %}
 
-<section class="comment-section">
-  <div></div>
-</section>
-{% endblock %}
+  <section class="mt-5 description__section">
+    <h1 class="text-light article__heading">{{ article_detail.title }}</h1>
+    <div
+      class="d-flex align-items-center justify-content-around justify-content-sm-between mt-4 text-white"
+    >
+      <p>By: {{ article_detail.author }}</p>
+      <p>Updated: {{ article_detail.date_created.date|date:" D d M Y" }}</p>
+    </div>
+    <hr />
+    <div>
+      {% autoescape on %}
+      <p class="article-first-paragraph">
+        {{ article_detail.description|safe|escape }}
+      </p>
+      {% endautoescape %}
+      <img
+        src="{{ article_detail.upload_pics.url }}"
+        alt="post pics"
+        class="img-fluid"
+      />
+      {% autoescape on %}
+      <p class="mt-5 description-text">{{ article_detail.text|safe|escape }}</p>
+      {% endautoescape %}
+    </div>
+  </section>
+
+  <section class="comment-section">
+    <div>
+      {% with comments.count as total_comments %}
+      <p>{{ total_comments }} Comments {{ total_comments|pluralize }}</p>
+      {% endwith %}
+    </div>
+
+    {% for comment in comments %}
+    <div>
+      <p>
+        Comment {{ forloop.counter }} by {{ comment.name }} {{ comment.created
+        }}
+      </p>
+      {{ comment.body|linebreaks }}
+    </div>
+    {% empty %}
+    <p>There are no comments yet</p>
+    {% endfor %} {% if new_comment %}
+    <p>Your comment has been added</p>
+    {% else %}
+    <h2>Add a new comment</h2>
+    <form action="" method="post">
+      {{ comment_form.as_p }} {% csrf_token %}
+      <input type="submit" value="comment" />
+    </form>
+    {% endif %}
+  </section>
+  {% endblock %}
+</main>

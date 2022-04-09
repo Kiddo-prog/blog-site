@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 from django.db.models.deletion import CASCADE
 from django.urls import reverse
@@ -22,7 +23,7 @@ class Article(models.Model):
     description = models.TextField(default="Description not available")
     text = models.TextField()
     status = models.CharField(max_length=20, choices=options, default="published")
-    slug = models.SlugField(max_length=100, unique=True, null=False)
+    slug = models.SlugField(max_length=100, unique=True, null=True, default="hello.jpg")
     upload_pics = models.ImageField(
         default="default.jpg", upload_to="article_pics", null=True
     )
@@ -37,8 +38,13 @@ class Article(models.Model):
 
 
 class Comment(models.Model):
+    post = models.ForeignKey(Article, related_name="comments", on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
+    body = models.TextField()
     email = models.EmailField()
-    comment = models.TextField()
-    created = models.DateTimeField(auto_now=True)
-    updated = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"Comment by {self.name} on {self.post}"
