@@ -23,7 +23,7 @@ class Article(models.Model):
     description = models.TextField(default="Description not available")
     text = models.TextField()
     status = models.CharField(max_length=20, choices=options, default="published")
-    slug = models.SlugField(max_length=100, unique=True, null=True, default="hello.jpg")
+    slug = models.SlugField(max_length=100, unique=True, unique_for_date="date_created")
     upload_pics = models.ImageField(
         default="default.jpg", upload_to="article_pics", null=True
     )
@@ -47,4 +47,4 @@ class Comment(models.Model):
     active = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"Comment by {self.name} on {self.post}"
+        return f"Comment by {self.name} on {self.post.title}"

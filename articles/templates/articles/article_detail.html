@@ -13,47 +13,23 @@
     <hr />
     <div>
       {% autoescape on %}
-      <p class="article-first-paragraph">
-        {{ article_detail.description|safe|escape }}
-      </p>
-      {% endautoescape %}
-      <img
-        src="{{ article_detail.upload_pics.url }}"
-        alt="post pics"
-        class="img-fluid"
-      />
-      {% autoescape on %}
       <p class="mt-5 description-text">{{ article_detail.text|safe|escape }}</p>
       {% endautoescape %}
     </div>
   </section>
 
-  <section class="comment-section">
-    <div>
-      {% with comments.count as total_comments %}
-      <p>{{ total_comments }} Comments {{ total_comments|pluralize }}</p>
-      {% endwith %}
-    </div>
-
-    {% for comment in comments %}
-    <div>
-      <p>
-        Comment {{ forloop.counter }} by {{ comment.name }} {{ comment.created
-        }}
-      </p>
-      {{ comment.body|linebreaks }}
-    </div>
-    {% empty %}
-    <p>There are no comments yet</p>
-    {% endfor %} {% if new_comment %}
-    <p>Your comment has been added</p>
-    {% else %}
-    <h2>Add a new comment</h2>
-    <form action="" method="post">
-      {{ comment_form.as_p }} {% csrf_token %}
-      <input type="submit" value="comment" />
-    </form>
-    {% endif %}
+  <hr />
+  <section>
+    <h4>Comments</h4>
+    {% if not article_detail.comments.all %}
+    <p>No comment yet</p>
+    {% else %} {% for comment in article_detail.comments.all %}
+    <strong>
+      {{ comment.name|title }}
+      <i>{{ comment.created }}</i>
+    </strong>
+    <p>{{ comment.body|linebreaks }}</p>
+    {% endfor %} {% endif %}
   </section>
   {% endblock %}
 </main>
