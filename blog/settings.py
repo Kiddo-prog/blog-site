@@ -47,6 +47,22 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.redirects",
     "crispy_forms",
+
+    #### wagtail apps
+    'wagtail.contrib.forms',
+    'wagtail.contrib.redirects',
+    'wagtail.embeds',
+    'wagtail.sites',
+    'wagtail.users',
+    'wagtail.snippets',
+    'wagtail.documents',
+    'wagtail.images',
+    'wagtail.search',
+    'wagtail.admin',
+    'wagtail',
+
+    'modelcluster',
+    'taggit'
 ]
 
 MIDDLEWARE = [
@@ -60,6 +76,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    "wagtail.contrib.redirects.middleware.RedirectMiddleware",
     # "django.contrib.redirects.middleware.RedirectFallbackMiddleware",
 ]
 
@@ -170,3 +187,5 @@ DEFAULT_FROM_EMAIL = "husseinmubarak500@gmail.com"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
+WAGTAIL_SITE_NAME = 'CodeWithMubi'
